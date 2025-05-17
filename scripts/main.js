@@ -4,11 +4,24 @@ let context = canvas.getContext("2d");
 canvas.style.background = "tan";
 canvas.style.border = "solid 4px white";
 
-var windowWidth = window.innerWidth - 50;
-var windowHeight = window.innerHeight - 50;
-
 canvas.width = 1200;// windowWidth;
 canvas.height = 800; // windowHeight;
+
+canvas.addEventListener("mousedown", function (e) {
+    var mousePos = GetMousePos(canvas, e);
+
+    console.log(`User clicked while id is ${m_playerId}`);
+    if (m_playerId == -1) {
+        document.getElementById("introText").style.visibility = "hidden";
+        Websocket_requestCreateIdAndBubble(mousePos);
+    }
+    else if (m_playerId == -2) {
+        // DO NOTHING
+    }
+    else {
+        Websocket_requestUserClicked(mousePos);
+    }
+});
 
 var m_playerId = -1;
 var m_bubbleScore = "";
@@ -16,7 +29,6 @@ var m_bubbleArray = [];
 var m_squareArray = [];
 var m_arrowArray  = [];
 var m_goalLineArray  = [];
-var m_debugCircle = { x: 0, y: 0 };
 var m_canvasCenter = { x: canvas.width * 0.5, y: canvas.height * 0.5 };
 var m_worldOffset = { x: 0, y: 0 };
 
@@ -24,17 +36,64 @@ const ws = new WebSocket("ws://localhost:3000");
 
 ws.addEventListener("open", () => {
     console.log("We are connected!");
-
-    ws.send("Client to Server.");
 });
 
-ws.addEventListener("message", (d) => {
-    console.log(JSON.parse(d.data));
-    console.log(JSON.parse(d.data).type);
-    console.log(JSON.parse(d.data).content);
+ws.addEventListener("message", (message) => {
+    var parsedMessage = { action: "" };
+
+    parsedMessage = (JSON.parse(message.data));
+    console.log(`Message from ws`);
+    if (parsedMessage.action == "changed_data") {
+        //console.log(`Got changed_data: ${JSON.stringify(parsedMessage)}`);
+        HandleMessage_ChangedData(parsedMessage);
+    }
+    else if (parsedMessage.action == "id") {
+        m_playerId = parsedMessage.id;
+        console.log(`We got incomingId ${m_playerId}`);
+    }
+    else if (parsedMessage.action == "world_data") {
+        console.log("Got world_data");
+        Websocket_getDataInitial(parsedMessage);
+    }
+    else if (parsedMessage.action == "test") {
+        //console.log("Received test message.");
+        console.log(parsedMessage.message);
+    }
 });
 
-function getMousePos(canvas, evt) {
+function SendMessageToServer(messageAction = "", messageData = {}) {
+    if (messageAction == "") {
+        console.log(`Mesage to server must have an action!`);
+        return;
+    }
+    messageData.action = messageAction;
+    var messageToServer = JSON.stringify(messageData);
+    ws.send(messageToServer);
+}
+
+function HandleMessage_ChangedData(changedData) {
+    m_bubbleArray = changedData.bubbleArray;
+    var newSquareArray = changedData.squareArray;
+
+    for (var i = 0; i < newSquareArray.length; i++) {
+        for (var j = 0; j < m_squareArray.length; j++) {
+            if (m_squareArray[j].m_id == newSquareArray[i].m_id) {
+                m_squareArray[j].m_position = newSquareArray[i].m_position;
+                m_squareArray[j].m_size = newSquareArray[i].m_size;
+            }
+        }
+    }
+    for (var i = 0; i < m_bubbleArray.length; i++) {
+        if (m_bubbleArray[i].m_id == m_playerId) {
+            m_worldOffset.x = -(m_bubbleArray[i].m_position.x - m_canvasCenter.x);
+            m_worldOffset.y = -(m_bubbleArray[i].m_position.y - m_canvasCenter.y);
+        }
+    }
+    GameRedraw();
+}
+
+
+function GetMousePos(canvas, evt) {
   var rect = canvas.getBoundingClientRect();
   return {
     x: evt.clientX - rect.left,
@@ -42,37 +101,9 @@ function getMousePos(canvas, evt) {
   };
 }
 
-canvas.addEventListener("mousedown", function (e) {
-    var mousePos = getMousePos(canvas, e);
-  
-    if (m_playerId == -1) {
-        document.getElementById("introText").style.visibility = "hidden";
-        requestCreateIdAndThenCreateBubble(mousePos);
-    }
-    else if (m_playerId == -2) {
-        // DO NOTHING
-    }
-    else {
-        requestUserClicked(mousePos);
-    }
-});
-function resolveAfterSeconds(seconds) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve('resolved');
-        }, seconds * 1000);
-    });
-}
 
-async function gameUpdate() {
-    //console.log("update");
-    getData();
-    //console.log("got data");
-    window.requestAnimationFrame(gameUpdate);
-}
-
-function gameRedraw(playerBubbleIdx) {
-    console.log("Beginning redraw: " + m_squareArray.length);
+function GameRedraw() {
+    console.log("Beginning redraw: " + m_goalLineArray.length);
     context.clearRect(0, 0, canvas.width, canvas.height);
     if (m_goalLineArray.length > 0) {
         m_goalLineArray.forEach(G => {
@@ -84,27 +115,28 @@ function gameRedraw(playerBubbleIdx) {
             DrawArrow(A);
         });
     }
+    console.log("continuing redraw: " + m_bubbleArray.length);
     if (m_bubbleArray.length > 0) {
         var confirmBubble = false;
-        m_bubbleArray.forEach(B => {
-            if (B.m_id == m_playerId) {
+        m_bubbleArray.forEach(bubbleInBubbleArray => {
+            if (bubbleInBubbleArray.m_id == m_playerId) {
                 confirmBubble = true;
-                if (B.m_state == 0) {
-                    m_bubbleScore = B.m_points;
-                    DrawBubble(B, true);
+                if (bubbleInBubbleArray.m_state == 0) {
+                    m_bubbleScore = bubbleInBubbleArray.m_points;
+                    DrawBubble(bubbleInBubbleArray, true);
                 }
-                else if (B.m_state == 1) {
-                    DrawBubble(B, true);
+                else if (bubbleInBubbleArray.m_state == 1) {
+                    DrawBubble(bubbleInBubbleArray, true);
                 }
-                else if (B.m_state == 2) {
-                    updateTopScore();
+                else if (bubbleInBubbleArray.m_state == 2) {
+                    UpdateTopScore();
                     document.getElementById("introText").style.visibility = "visible";
                     m_playerId = -1;
                     document
                 }
             }
             else
-                DrawBubble(B, false);
+                DrawBubble(bubbleInBubbleArray, false);
         });
 
         if (!confirmBubble && m_playerId > -1) {
@@ -114,94 +146,49 @@ function gameRedraw(playerBubbleIdx) {
         }
     }
     if (m_squareArray.length > 0) {
-        m_squareArray.forEach(S => {
-            DrawSquare(S);
+        m_squareArray.forEach(squareInSquareArray => {
+            DrawSquare(squareInSquareArray);
         });
     }
-    writeText(m_bubbleScore, { x: 10, y: 10 });
+    WriteText(m_bubbleScore, { x: 10, y: 10 });
 }
 
-function updateTopScore() {
-    document.getElementById("TopScoreText").innerHTML = ""+m_bubbleScore;
+function UpdateTopScore() {
+    if (m_bubbleScore > document.getElementById("TopScoreText").innerHTML)
+        document.getElementById("TopScoreText").innerHTML = ""+m_bubbleScore;
 }
 
 
-function writeText(text, position) {
+function WriteText(text, position) {
     context.font = "100px Arial";
     context.fillStyle = "black";
     context.fillText(text, position.x, position.y+100);
 }
 
-// Get data
+// Websocket Functions
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const myHeaders = { 'Content-Type': 'application/json', };
-//const serverAddr = "http://ec2-44-244-49-79.us-west-2.compute.amazonaws.com:3000";
-const serverAddr = "http://localhost:3000";
+//const SERVER_ADDRESS = "http://ec2-44-244-49-79.us-west-2.compute.amazonaws.com:3000";
+const SERVER_ADDRESS = "http://localhost:3000";
 
-const getCreateBubbleRequest = new Request(serverAddr+"/bubble", {
-    mehtod: "GET",
-    headers: myHeaders,
-});
-const getDataRequest = new Request(serverAddr+"/", {
-    mehtod: "GET",
-    headers: myHeaders,
-});
-const getInitialDataRequest = new Request(serverAddr+"/initial", {
-    mehtod: "GET",
-    headers: myHeaders,
-});
-
-async function requestCreateIdAndThenCreateBubble(mousePos) {
+async function Websocket_requestCreateIdAndBubble(mousePos) {
     m_playerId = -2;
     try {
         var incomingId = -1;
-        var response = await fetch(serverAddr+'/id', {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => { incomingId = data; console.log("incomingId: " + incomingId); requestCreateBubble(mousePos, incomingId); });
+        console.log(`Sending id and bubble request`);
+        SendMessageToServer("id_and_bubble", { mousePos: mousePos });
     }
     catch (error) {
         console.log(error.message);
     }
 }
 
-async function requestCreateBubble(mousePos, id) {
-    //document.getElementById("overlayDiv").style.visibility = "hidden";
-    var requestBody = {
-        id: id,
-        pos: mousePos,
-        areaWidth: canvas.width,
-        areaHeight: canvas.height
-    }
-    try {
-        var response = await fetch(serverAddr+'/bubble', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody),
-        })
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => {
-            //console.log("postInfo data: " + data.message);
-            m_playerId = id;
-            console.log("We are now Player " + m_playerId);
-        });
-    }
-    catch (error) {
-        console.log(error.message);
-    }
-}
 
-async function requestUserClicked(pos) {
+async function Websocket_requestUserClicked(pos) {
     console.log("pos: " + pos.x + ", " + pos.y);
     console.log("m_worldOffset: " + m_worldOffset.x + ", " + m_worldOffset.y);
     console.log("m_canvasCenter: " + m_canvasCenter.x + ", " + m_canvasCenter.y);
     var clickBody = {
+        action: "click",
         clickPos: {
             x: pos.x - m_canvasCenter.x,
             y: pos.y - m_canvasCenter.y
@@ -209,80 +196,29 @@ async function requestUserClicked(pos) {
         id: m_playerId
     }
     try {
-        var response = await fetch(serverAddr+'/click', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(clickBody),
-        })
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => console.log("postInfo data: " + data));
-        //console.log("postInfo response: " + response);
+        ws.send(JSON.stringify(clickBody));
     }
     catch (error) {
         console.log(error.message);
     }
 }
 
-async function getData() {
+
+async function Websocket_getDataInitial(data) {
     try {
-        //const response = await fetch(getDataRequest);
+            m_bubbleArray = data.bubbleArray;
+            m_squareArray = data.squareArray;
+            m_arrowArray = data.arrowArray;
+            m_goalLineArray = data.goalLineArray;
 
-
-        const json = await response.json()
-            .then((res) => {
-                m_bubbleArray = res.bubbleArray;
-                //console.log("Try matches with theirSquares: " + res.squareArray.length);
-                for (var i = 0; i < m_squareArray.length; i++) {
-                    for (var j = 0; j < res.squareArray.length; j++) {
-                        if (m_squareArray[i].m_id == res.squareArray[j].m_id) {
-
-                            //console.log("Matched "+m_squareArray[i].m_id);
-                            m_squareArray[i].m_position = res.squareArray[j].m_position;
-                            m_squareArray[i].m_size = res.squareArray[j].m_size;
-                        }
-                    }
-                }
-                for (var i = 0; i < res.bubbleArray.length; i++) {
-                    if (res.bubbleArray[i].m_id == m_playerId) {
-                        m_worldOffset.x = -(res.bubbleArray[i].m_position.x - m_canvasCenter.x);
-                        m_worldOffset.y = -(res.bubbleArray[i].m_position.y - m_canvasCenter.y);
-                    }
-                }
-            })
-            .then(() => {
-                gameRedraw();
-            });
+            GameRedraw();
     }
     catch (error) {
         console.log(error.message);
+        console.log((data));
     }
 }
 
-async function getDataInitial() {
-    try {
-        const response = await fetch(getInitialDataRequest);
-
-        const json = await response.json()
-            .then((res) => {
-                m_bubbleArray = res.bubbleArray;
-                m_squareArray = res.squareArray;
-                m_arrowArray = res.arrowArray;
-                m_goalLineArray = res.goalLineArray;
-            })
-            .then(() => {
-                gameRedraw();
-            })
-            .then(() => {
-                gameUpdate();
-            });
-    }
-    catch (error) {
-        console.log(error.message);
-    }
-}
-//getDataInitial();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Bubble
@@ -462,7 +398,7 @@ function DrawUpArrow(pos) {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Arrow
+// GoalLine
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //newArrowObject.m_id = id;
 //newArrowObject.m_position = { x: pos.x, y: pos.y };

@@ -8,7 +8,7 @@ function CreateSquareObject(id, pos, size, fallDirection, addChangedSquareFn) {
     newSquareObject.m_position = { x: pos.x, y: pos.y };
     newSquareObject.m_fallDirection = fallDirection;
     newSquareObject.m_timeStamp = new Date().getTime();
-    newSquareObject.addChangedSquareFn = addChangedSquareFn;
+    newSquareObject.AddChangedSquareFn = addChangedSquareFn;
     // 0: not spawned
     // 1: spawning in
     // 2: spawned in
@@ -32,7 +32,7 @@ function CreateSquareObject(id, pos, size, fallDirection, addChangedSquareFn) {
     newSquareObject.m_startingPos = { x: pos.x, y: pos.y };
     newSquareObject.m_startingSize = { x: size.x, y: size.y };
 
-    newSquareObject.bump = function () {
+    newSquareObject.Bump = function () {
         if (this.m_state == this.STATES.NOT_SPAWNED) {
             this.m_state = this.STATES.SPAWNING;
         }
@@ -41,7 +41,7 @@ function CreateSquareObject(id, pos, size, fallDirection, addChangedSquareFn) {
         }
     }
 
-    newSquareObject.update = function () {
+    newSquareObject.Update = function () {
 
         var newTimeStamp = new Date().getTime();
         var deltaTime = (newTimeStamp - this.m_timeStamp) * 0.001;
@@ -64,7 +64,7 @@ function CreateSquareObject(id, pos, size, fallDirection, addChangedSquareFn) {
                 return;
             }
             this.m_sinTracking += deltaTime;
-            this.addChangedSquareFn(this);
+            this.AddChangedSquareFn(this);
         }
         else if (this.m_state == this.STATES.IS_SPAWNED) {
             // DO NOTHING
@@ -80,7 +80,7 @@ function CreateSquareObject(id, pos, size, fallDirection, addChangedSquareFn) {
                 return;
             }
             this.m_sinTracking += deltaTime;
-            this.addChangedSquareFn(this);
+            this.AddChangedSquareFn(this);
         }
         else { // (this.m_state == this.STATES.IS_FALLING)
             //console.log("FALLING: " + this.m_size.x + ", " + this.m_size.y);
@@ -94,7 +94,7 @@ function CreateSquareObject(id, pos, size, fallDirection, addChangedSquareFn) {
                 this.m_position.y = this.m_startingPos.y;
                 this.m_state = this.STATES.NOT_SPAWNED;
             }
-            this.addChangedSquareFn(this);
+            this.AddChangedSquareFn(this);
         }
     }
     return newSquareObject;

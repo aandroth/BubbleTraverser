@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\scripts\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scripts\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\server.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Server\\server.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\scripts\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scripts\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\square.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -21,6 +17,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\bubble.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Server\\bubble.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,52 +34,26 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "index.html",
-              "DocumentMoniker": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\index.html",
-              "RelativeDocumentMoniker": "index.html",
-              "ToolTip": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\index.html",
-              "RelativeToolTip": "index.html",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-04-16T12:18:35.477Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "main.js",
               "DocumentMoniker": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\scripts\\main.js",
               "RelativeDocumentMoniker": "scripts\\main.js",
               "ToolTip": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\scripts\\main.js",
               "RelativeToolTip": "scripts\\main.js",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAywB0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJQAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-03-23T17:21:58.434Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "square.js",
-              "DocumentMoniker": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\square.js",
-              "RelativeDocumentMoniker": "Server\\square.js",
-              "ToolTip": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\square.js",
-              "RelativeToolTip": "Server\\square.js",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAQwDcAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-03-23T03:40:55.074Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "server.js",
               "DocumentMoniker": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\server.js",
               "RelativeDocumentMoniker": "Server\\server.js",
               "ToolTip": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\server.js",
               "RelativeToolTip": "Server\\server.js",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAFUBAAAAAAAAAAAUwCIBAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-03-23T03:40:40.704Z",
               "EditorCaption": ""
@@ -87,12 +61,36 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\index.html",
+              "RelativeDocumentMoniker": "index.html",
+              "ToolTip": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\index.html",
+              "RelativeToolTip": "index.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-04-16T12:18:35.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "square.js",
+              "DocumentMoniker": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\square.js",
+              "RelativeDocumentMoniker": "Server\\square.js",
+              "ToolTip": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\square.js",
+              "RelativeToolTip": "Server\\square.js",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAUwGEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-03-23T03:40:55.074Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "bubble.js",
               "DocumentMoniker": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\bubble.js",
               "RelativeDocumentMoniker": "Server\\bubble.js",
               "ToolTip": "C:\\Users\\aandr\\Desktop\\My Best Life\\My Best Coder Life\\Learning\\Aaron_AWS_Learning\\BubbleTraverser\\Server\\bubble.js",
               "RelativeToolTip": "Server\\bubble.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAEwBkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAUwCUAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-04-06T07:22:02.388Z"
             }

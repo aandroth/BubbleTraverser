@@ -35,9 +35,9 @@ function CreateBubbleObject(id, mousePos, startAreaBounds, removeFn) {
         y: 0// norm.x * newBubbleObject.m_speed
     }
 
-    newBubbleObject.callRemove = removeFn;
+    newBubbleObject.CallRemove = removeFn;
 
-    newBubbleObject.update = function () {
+    newBubbleObject.Update = function () {
 
         if (this.m_state == 0) {
             //console.log("pos: " + this.m_position.x + ", " + this.m_position.y);
@@ -63,11 +63,11 @@ function CreateBubbleObject(id, mousePos, startAreaBounds, removeFn) {
             }
         }
         else if (this.m_state == 2) {
-            this.callRemove();
+            this.CallRemove();
         }
     }
 
-    newBubbleObject.correctSpeed = function () {
+    newBubbleObject.CorrectSpeed = function () {
         var mag = Math.sqrt(this.m_velocity.x * this.m_velocity.x + this.m_velocity.y * this.m_velocity.y);
         var norm = { x: this.m_velocity.x / mag, y: this.m_velocity.y / mag };
 
@@ -101,7 +101,7 @@ function ChangeDirection(mousePos, bubble) {
         x: mousePos.x,
         y: mousePos.y
     };
-    bubble.correctSpeed();
+    bubble.CorrectSpeed();
 }
 
 function ReachedGoalLine(bubble, goalLineId) {
