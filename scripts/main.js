@@ -140,6 +140,7 @@ function GameRedraw() {
         });
 
         if (!confirmBubble && m_playerId > -1) {
+            // Added comment
             document.getElementById("introText").style.visibility = "visible";
             m_playerId = -1;
         }
