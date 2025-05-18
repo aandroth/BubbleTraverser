@@ -140,7 +140,6 @@ function GameRedraw() {
         });
 
         if (!confirmBubble && m_playerId > -1) {
-            //console.log("Changing id from " + m_playerId + " to -1");
             document.getElementById("introText").style.visibility = "visible";
             m_playerId = -1;
         }
