@@ -4,8 +4,8 @@ let context = canvas.getContext("2d");
 canvas.style.background = "tan";
 canvas.style.border = "solid 4px white";
 
-canvas.width = 1200;// windowWidth;
-canvas.height = 800; // windowHeight;
+canvas.width = 1200;
+canvas.height = 800;
 
 canvas.addEventListener("mousedown", function (e) {
     var mousePos = GetMousePos(canvas, e);
@@ -167,8 +167,8 @@ function WriteText(text, position) {
 
 // Websocket Functions
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//const SERVER_ADDRESS = "http://ec2-44-244-49-79.us-west-2.compute.amazonaws.com:3000";
-const SERVER_ADDRESS = "http://localhost:3000";
+const SERVER_ADDRESS = "http://ec2-44-244-49-79.us-west-2.compute.amazonaws.com:3000";
+//const SERVER_ADDRESS = "http://localhost:3000";
 
 async function Websocket_requestCreateIdAndBubble(mousePos) {
     m_playerId = -2;
