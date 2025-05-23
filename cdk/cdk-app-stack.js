@@ -15,8 +15,8 @@ class CdkAppStack extends cdk.Stack
     constructor(scope, id, props) {
         super(scope, id, props);
 
-        const myBucket = new s3.Bucket(this, 'MyBucket', {
-            bucketName: 'my-bucket-name',
+        const myBucket = new s3.Bucket(this, 'my-bubble-traverser-site-bucket', {
+            bucketName: 'my-bubble-traverser-site-bucket',
             publicReadAccess: true,
             blockPublicAccess: {
                 blockPublicAcls: false,
@@ -29,7 +29,7 @@ class CdkAppStack extends cdk.Stack
         });
 
         new s3Deploy.BucketDeployment(this, 'BucketDeploymentId', {
-            sources: [s3Deploy.Source.asset("./src/website")],
+            sources: [s3Deploy.Source.asset("./")],
             destinationBucket: myBucket,
         });
 
@@ -54,7 +54,7 @@ class CdkAppStack extends cdk.Stack
             'simple-site-instance-1-sg',
             {
                 vpc: defaultVpc,
-                allowAllOutbound: true, // will let your instance send outboud traffic
+                allowAllOutbound: true, // will let your instance send outbound traffic
                 securityGroupName: 'simple-site-instance-1-sg',
             }
         )
@@ -78,12 +78,22 @@ class CdkAppStack extends cdk.Stack
             'Allows HTTPS access from Internet'
         )
 
+        const userData = ec2.UserData.forLinux();
+        userData.addCommands(
+            'sudo yum update',
+            'sudo yum install ruby',
+            'wget https://aws-codedeploy-us-west-2.s3.us-west-2.amazonaws.com/latest/install',
+            'chmod +x ./install',
+            'sudo ./install auto',
+            'sudo service codedeploy-agent status',
+        );
+
         // Finally lets provision our ec2 instance
-        const instance = new ec2.Instance(this, 'simple-instance-1', {
+        const instance = new ec2.Instance(this, 'bubble-traverser-instance', {
             vpc: defaultVpc,
             role: role,
             securityGroup: securityGroup,
-            instanceName: 'simple-site-instance-1',
+            instanceName: 'bubble-traverser-instance',
             instanceType: ec2.InstanceType.of( // t2.micro has free tier usage in aws
                 ec2.InstanceClass.T2,
                 ec2.InstanceSize.MICRO
@@ -91,13 +101,12 @@ class CdkAppStack extends cdk.Stack
             machineImage: ec2.MachineImage.latestAmazonLinux({
                 generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
             }),
-
-            keyName: 'simple-instance-1-key', // we will create this in the console before we deploy
+            userData: Fn.base64(userData.render()),
         })
 
         // cdk lets us output prperties of the resources we create after they are created
         // we want the ip address of this new instance so we can ssh into it later
-        new cdk.CfnOutput(this, 'simple-instance-1-output', {
+        new cdk.CfnOutput(this, 'bubble-traverser-instance-output', {
             value: instance.instancePublicIp
         })
     }
