@@ -103,7 +103,7 @@ function GetMousePos(canvas, evt) {
 
 
 function GameRedraw() {
-    console.log("Beginning redraw: " + m_goalLineArray.length);
+    //console.log("Beginning redraw: " + m_goalLineArray.length);
     context.clearRect(0, 0, canvas.width, canvas.height);
     if (m_goalLineArray.length > 0) {
         m_goalLineArray.forEach(G => {
@@ -115,7 +115,7 @@ function GameRedraw() {
             DrawArrow(A);
         });
     }
-    console.log("continuing redraw: " + m_bubbleArray.length);
+    //console.log("continuing redraw: " + m_bubbleArray.length);
     if (m_bubbleArray.length > 0) {
         var confirmBubble = false;
         m_bubbleArray.forEach(bubbleInBubbleArray => {
@@ -174,7 +174,7 @@ async function Websocket_requestCreateIdAndBubble(mousePos) {
     m_playerId = -2;
     try {
         var incomingId = -1;
-        console.log(`Sending id and bubble request`);
+        //console.log(`Sending id and bubble request`);
         SendMessageToServer("id_and_bubble", { mousePos: mousePos });
     }
     catch (error) {
