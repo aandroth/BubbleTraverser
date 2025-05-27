@@ -77,7 +77,7 @@ const HandleMessage_initial = (ws) => {
         console.log(m_goalLineArray[0].m_position.x + ", " + m_goalLineArray[0].m_position.y);
     }
     else {
-        console.log("no goal lines!");
+        console.log("Error: no goal lines!");
     }
     var worldDataAll = {
         squareArray: m_squareArray,
