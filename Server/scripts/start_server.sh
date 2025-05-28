@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo ./npm start
+npm start
