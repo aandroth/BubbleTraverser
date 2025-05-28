@@ -6,3 +6,4 @@ export NVM_DIR="$HOME/.nvm"
 nvm install 16.0.0
 sudo cp $(which npm) /usr/bin/npm
 sudo cp $(which node) /usr/bin/node
+sudo $(which npm) install cors
