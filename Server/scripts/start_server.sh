@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo $(which npm) start
+$(which npm) start
