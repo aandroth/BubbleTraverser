@@ -279,7 +279,7 @@ async function AddChangedSquare(changedSquare) {
 }
 
 async function ServerUpdate() {
-    //console.log("Server Update: " + m_bubbleArray.length);
+    console.log("Server Update begin" + m_bubbleArray.length);
     m_changedSquareArray = [];
     await CheckCollisions_Squares();
     await CheckCollisions_GoalLines();
@@ -299,6 +299,7 @@ async function ServerUpdate() {
             }
         }
     }
+    console.log("Server Update end");
 }
 
 
