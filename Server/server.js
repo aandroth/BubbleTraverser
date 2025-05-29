@@ -280,8 +280,8 @@ async function AddChangedSquare(changedSquare) {
 }
 
 async function ServerUpdate() {
-    console.log("Server Update begin");
     let time = d.getTime();
+    console.log("Server Update begin at " + time);
     m_changedSquareArray = [];
     await CheckCollisions_Squares();
     await CheckCollisions_GoalLines();
@@ -303,7 +303,7 @@ async function ServerUpdate() {
     }
     let deltaTime = d.getTime() - time;
     time = d.getTime();
-    console.log("Server Update end: " + (deltaTime));
+    console.log("Server Update end at " + time + ", with delta of " + (deltaTime));
 }
 
 
