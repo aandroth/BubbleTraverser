@@ -17,8 +17,8 @@ var m_changedSquareArray = [];
 var m_squareDropTracker = 0;
 var m_squareDropInterval = 10;
 var m_startAreaBounds = { xMin: 0, yMin: -1000, xMax: 200, yMax: -600 };
-const UPDATE_INTERVAL_TIME = 100;
-const d = new Date();
+const UPDATE_INTERVAL_TIME = 50;
+let intervalTime = 0;
 
 
 wss.on('connection', ws => {
@@ -280,8 +280,8 @@ async function AddChangedSquare(changedSquare) {
 }
 
 async function ServerUpdate() {
+    let d = new Date();
     let time = d.getTime();
-    console.log("Server Update begin at " + time);
     m_changedSquareArray = [];
     await CheckCollisions_Squares();
     await CheckCollisions_GoalLines();
@@ -301,9 +301,12 @@ async function ServerUpdate() {
             }
         }
     }
+    d = new Date();
     let deltaTime = d.getTime() - time;
-    time = d.getTime();
-    console.log("Server Update end at " + time + ", with delta of " + (deltaTime));
+    console.log("Server Update end at " + d.getTime() + ", with delta of " + (deltaTime));
+    let intervalTimeDelta = d.getTime() - intervalTime;
+    intervalTime = d.getTime();
+    console.log("Server UpdateInterval lasted till " + intervalTime + ", with delta of " + intervalTimeDelta);
 }
 
 
