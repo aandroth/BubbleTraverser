@@ -102,6 +102,7 @@ class CdkAppStack extends cdk.Stack
                 generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
             }),
             userData: Fn.base64(userData.render()),
+            
         })
 
         // cdk lets us output prperties of the resources we create after they are created

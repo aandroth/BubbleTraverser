@@ -32,7 +32,8 @@ var m_goalLineArray  = [];
 var m_canvasCenter = { x: canvas.width * 0.5, y: canvas.height * 0.5 };
 var m_worldOffset = { x: 0, y: 0 };
 
-const ws = new WebSocket("ws://localhost:3000");
+//const ws = new WebSocket("ws://localhost:3000");
+const ws = new WebSocket("ws://ec2-44-244-49-79.us-west-2.compute.amazonaws.com:3000/");
 
 ws.addEventListener("open", () => {
     console.log("We are connected!");
@@ -42,7 +43,7 @@ ws.addEventListener("message", (message) => {
     var parsedMessage = { action: "" };
 
     parsedMessage = (JSON.parse(message.data));
-    console.log(`Message from ws`);
+    console.log(`Message from ws ${parsedMessage.action}`);
     if (parsedMessage.action == "changed_data") {
         //console.log(`Got changed_data: ${JSON.stringify(parsedMessage)}`);
         HandleMessage_ChangedData(parsedMessage);

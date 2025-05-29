@@ -1,0 +1,4 @@
+5/26/2025
+
+Current goal: Get the CI/CD working
+This is actually pretty close. I just need the CodeBuild finished, and that just seems to need the npm installed.
