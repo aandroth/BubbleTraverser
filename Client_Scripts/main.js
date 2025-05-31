@@ -31,6 +31,7 @@ var m_arrowArray  = [];
 var m_goalLineArray  = [];
 var m_canvasCenter = { x: canvas.width * 0.5, y: canvas.height * 0.5 };
 var m_worldOffset = { x: 0, y: 0 };
+var m_isDoingRedraw = false;
 
 //const ws = new WebSocket("ws://localhost:3000");
 const ws = new WebSocket("ws://ec2-44-244-49-79.us-west-2.compute.amazonaws.com:3000/");
@@ -73,24 +74,29 @@ function SendMessageToServer(messageAction = "", messageData = {}) {
 }
 
 function HandleMessage_ChangedData(changedData) {
-    m_bubbleArray = changedData.bubbleArray;
-    var newSquareArray = changedData.squareArray;
 
-    for (var i = 0; i < newSquareArray.length; i++) {
-        for (var j = 0; j < m_squareArray.length; j++) {
-            if (m_squareArray[j].m_id == newSquareArray[i].m_id) {
-                m_squareArray[j].m_position = newSquareArray[i].m_position;
-                m_squareArray[j].m_size = newSquareArray[i].m_size;
+    if (m_isDoingRedraw == false) {
+        m_isDoingRedraw = true;
+        m_bubbleArray = changedData.bubbleArray;
+        var newSquareArray = changedData.squareArray;
+
+        for (var i = 0; i < newSquareArray.length; i++) {
+            for (var j = 0; j < m_squareArray.length; j++) {
+                if (m_squareArray[j].m_id == newSquareArray[i].m_id) {
+                    m_squareArray[j].m_position = newSquareArray[i].m_position;
+                    m_squareArray[j].m_size = newSquareArray[i].m_size;
+                }
             }
         }
-    }
-    for (var i = 0; i < m_bubbleArray.length; i++) {
-        if (m_bubbleArray[i].m_id == m_playerId) {
-            m_worldOffset.x = -(m_bubbleArray[i].m_position.x - m_canvasCenter.x);
-            m_worldOffset.y = -(m_bubbleArray[i].m_position.y - m_canvasCenter.y);
+        for (var i = 0; i < m_bubbleArray.length; i++) {
+            if (m_bubbleArray[i].m_id == m_playerId) {
+                m_worldOffset.x = -(m_bubbleArray[i].m_position.x - m_canvasCenter.x);
+                m_worldOffset.y = -(m_bubbleArray[i].m_position.y - m_canvasCenter.y);
+            }
         }
+        GameRedraw();
+        m_isDoingRedraw = false;
     }
-    GameRedraw();
 }
 
 
