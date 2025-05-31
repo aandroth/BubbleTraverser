@@ -2,3 +2,12 @@
 
 Current goal: Get the CI/CD working
 This is actually pretty close. I just need the CodeBuild finished, and that just seems to need the npm installed.
+
+5/31/2025
+Having a a hard time with a file still pointing to some main.js that still looks for localhost...
+I've deleted the file from the git push to see if that helps
+	Deleting the index.html in the root does cause the site to go down
+Site still pointing to localhost...
+Scripts in the S3 seem to be correct
+Deleted cdk and vs folders, no effect
+Blue border is present, but local and site don't show this...

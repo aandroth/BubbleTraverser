@@ -2,7 +2,7 @@ let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 
 canvas.style.background = "tan";
-canvas.style.border = "solid 4px white";
+canvas.style.border = "solid 4px blue";
 
 canvas.width = 1200;
 canvas.height = 800;
