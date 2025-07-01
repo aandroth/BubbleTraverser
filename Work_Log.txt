@@ -18,3 +18,5 @@ Tried from an incognito window and this works.
 The more windows I add the slower things get, and it seems like the redraw just gets overwhelmed with new messages, drawing all of them in order, instead of just taking the latest
 I have changed the code so that in the update it ignores update calls until it finishes its redraw.
 	This may make it super choppy
+
+Slightly choppy, but otherwise, a HUGE success!
