@@ -20,3 +20,9 @@ I have changed the code so that in the update it ignores update calls until it f
 	This may make it super choppy
 
 Slightly choppy, but otherwise, a HUGE success!
+
+
+Setup:
+
+VERY IMPORTANT!!!! Command to get files from s3 bucket into the EC2 Instance:
+aws s3 cp s3://bubblegame-client/scripts/main.js .
